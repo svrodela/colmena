@@ -35,6 +35,70 @@ app.get('/ver', (req, res) => {
         console.log('Error!', error);
     })
   })
+  app.get('/valor', (req, res) => {
+    const db = fire.firestore();
+      db.settings({
+        timestampsInSnapshots: true
+      });
+      var wholeData = []
+      db.collection('Valores').limit(1).orderBy('fecha','desc').get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+        
+          wholeData.push(doc.data())
+        });
+        console.log(wholeData)
+        res.send(wholeData)
+      })
+      .catch(error => {
+        console.log('Error!', error);
+    })
+  })
+  app.get('/grafica', (req, res) => {
+    const db = fire.firestore();
+      db.settings({
+        timestampsInSnapshots: true
+      });
+      var wholeData = []
+      db.collection('Valores').limit(10).orderBy('fecha','desc').get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+        
+          wholeData.push(doc.data())
+        });
+        console.log(wholeData)
+        res.send(wholeData)
+      })
+      .catch(error => {
+        console.log('Error!', error);
+    })
+  })
+  
+  app.post('/insertar', (req, res)=>{
+    const db = fire.firestore();
+      db.settings({
+        timestampsInSnapshots: true
+      });
+      
+      db.collection('Valores').add({
+       
+        temp: req.body.temp,
+        hum: req.body.hum,
+        gas: req.body.gas,
+        ruido: req.body.ruido,
+        nombre: req.body.nombre,
+        fecha: new Date().toJSON()
+      });
+      res.send({
+        temp: req.body.temp,
+        hum: req.body.hum,
+        gas: req.body.gas,
+        ruido: req.body.ruido,
+        nombre: req.body.nombre,
+        fecha: new Date(),
+        status: 'Valores insertados!'
+    })
+  })
 
 
 
