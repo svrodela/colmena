@@ -41,7 +41,7 @@ app.get('/ver', (req, res) => {
         timestampsInSnapshots: true
       });
       var wholeData = []
-      db.collection('Valores').limit(1).orderBy('fecha','desc').get()
+      db.collection('Colmenas').limit(1).orderBy('Fecha','desc').get()
       .then(snapshot => {
         snapshot.forEach(doc => {
         
@@ -60,7 +60,7 @@ app.get('/ver', (req, res) => {
         timestampsInSnapshots: true
       });
       var wholeData = []
-      db.collection('Valores').limit(10).orderBy('fecha','desc').get()
+      db.collection('Colmenas').limit(10).orderBy('Fecha','desc').get()
       .then(snapshot => {
         snapshot.forEach(doc => {
         
@@ -80,22 +80,16 @@ app.get('/ver', (req, res) => {
         timestampsInSnapshots: true
       });
       
-      db.collection('Valores').add({
+      db.collection('Colmenas').add({
        
         temp: req.body.temp,
-        hum: req.body.hum,
-        gas: req.body.gas,
-        ruido: req.body.ruido,
-        nombre: req.body.nombre,
-        fecha: new Date().toJSON()
+        hum: req.body.hum,        
+        Fecha: new Date().toJSON()
       });
       res.send({
         temp: req.body.temp,
         hum: req.body.hum,
-        gas: req.body.gas,
-        ruido: req.body.ruido,
-        nombre: req.body.nombre,
-        fecha: new Date(),
+        Fecha: new Date(),
         status: 'Valores insertados!'
     })
   })
