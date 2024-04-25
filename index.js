@@ -1,5 +1,5 @@
 const express = require('express')
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 5000
 var app = express();
 var fire = require('./fire')
 var cors = require('cors');
@@ -18,9 +18,7 @@ app.get('/', (req, res) => {
 
 app.get('/ver', (req, res) => {
     const db = fire.firestore();
-      db.settings({
-        timestampsInSnapshots: true
-      });
+      
       var wholeData = []
       db.collection('Colmenas').orderBy('Fecha', 'asc').get()
       .then(snapshot => {
@@ -37,9 +35,7 @@ app.get('/ver', (req, res) => {
   })
   app.get('/valor', (req, res) => {
     const db = fire.firestore();
-      db.settings({
-        timestampsInSnapshots: true
-      });
+      
       var wholeData = []
       db.collection('Colmenas').limit(1).orderBy('Fecha','desc').get()
       .then(snapshot => {
@@ -56,9 +52,7 @@ app.get('/ver', (req, res) => {
   })
   app.get('/grafica', (req, res) => {
     const db = fire.firestore();
-      db.settings({
-        timestampsInSnapshots: true
-      });
+      
       var wholeData = []
       db.collection('Colmenas').limit(10).orderBy('Fecha','desc').get()
       .then(snapshot => {
@@ -76,9 +70,7 @@ app.get('/ver', (req, res) => {
   
   app.post('/insertar', (req, res)=>{
     const db = fire.firestore();
-      db.settings({
-        timestampsInSnapshots: true
-      });
+      
       
       db.collection('Colmenas').add({
        
